@@ -1,0 +1,27 @@
+flowchart LR
+  subgraph PC["Laptop, Windows 11"]
+    NB["Colab notebook: ESC-50, log-Mel features, small CNN, int8 conversion"]
+    HDR["3 header files: model, feature tables, replay clips"]
+    PY["Python scripts: logger, benchmark, PHY sweep"]
+    NB --> HDR
+  end
+  subgraph NODE["Sensor node: Heltec WiFi LoRa 32 V4, ESP32-S3"]
+    CLIP["Replay clip from flash, later INMP441 I2S microphone"]
+    FE["Log-Mel features, 49 x 40, int8"]
+    NN["TensorFlow Lite Micro, int8 CNN, 14.5 KB"]
+    PKT["6 byte packet: node, sequence, class, confidence"]
+    TXR["SX1262 and front end amplifier"]
+    CLIP --> FE --> NN --> PKT --> TXR
+  end
+  subgraph RXN["Receiver: Arduino Nesso N1, ESP32-C6"]
+    RXR["SX1262 and LNA"]
+    DEC["Check packet, count lost packets"]
+    LCD["LCD: class, confidence, RSSI, SNR"]
+    RXR --> DEC --> LCD
+  end
+  WS["Waveshare USB-TO-LoRa-HF B, optional receiver, compatibility to be tested"]
+  HDR -. "compiled into the sketch" .-> NN
+  TXR == "raw LoRa, EU868, 125 kHz, SF7 to SF12" ==> RXR
+  TXR -. "to be tested" .-> WS
+  DEC -- "USB serial, CSV log" --> PY
+  PY -. "USB serial commands" .-> NODE

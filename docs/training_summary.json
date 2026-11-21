@@ -1,0 +1,58 @@
+{
+ "tensorflow": "2.21.0",
+ "classes": [
+  "background",
+  "chainsaw",
+  "fire",
+  "birds"
+ ],
+ "windows": {
+  "train": 2705,
+  "test": 358
+ },
+ "model_width": [
+  16,
+  32,
+  64
+ ],
+ "mixup_alpha": 0.3,
+ "epochs": 40,
+ "model_bytes": 14864,
+ "params": 4036,
+ "reference_kernels": true,
+ "test_window_acc_float": 0.8631,
+ "test_clip_acc_float": 0.875,
+ "test_window_acc_int8": 0.8687,
+ "test_clip_acc_int8": 0.9,
+ "confusion_int8": [
+  [
+   106,
+   5,
+   15,
+   18
+  ],
+  [
+   5,
+   64,
+   0,
+   2
+  ],
+  [
+   2,
+   0,
+   70,
+   0
+  ],
+  [
+   0,
+   0,
+   0,
+   71
+  ]
+ ],
+ "feat_std": 2.11838960647583,
+ "in_scale": 0.04689345136284828,
+ "in_zp": -17,
+ "out_scale": 0.00390625,
+ "out_zp": -128
+}

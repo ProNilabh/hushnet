@@ -1,0 +1,107 @@
+2000 clips listed in meta/esc50.csv
+frames per window: 49 | classes: ['background', 'chainsaw', 'fire', 'birds']
+train:  2705 windows from 160 clips | per class: [1088, 544, 529, 544]
+test :   358 windows from  40 clips | per class: [144, 71, 72, 71]
+feature time: 1.6 s
+FEAT_STD = 2.11838960647583
+TensorFlow 2.21.0
+Model: "functional"
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┓
+┃ Layer (type)                    ┃ Output Shape           ┃       Param # ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━┩
+│ logmel (InputLayer)             │ (None, 49, 40, 1)      │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ conv2d (Conv2D)                 │ (None, 25, 20, 16)     │           144 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ batch_normalization             │ (None, 25, 20, 16)     │            64 │
+│ (BatchNormalization)            │                        │               │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ re_lu (ReLU)                    │ (None, 25, 20, 16)     │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ depthwise_conv2d                │ (None, 25, 20, 16)     │           144 │
+│ (DepthwiseConv2D)               │                        │               │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ batch_normalization_1           │ (None, 25, 20, 16)     │            64 │
+│ (BatchNormalization)            │                        │               │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ re_lu_1 (ReLU)                  │ (None, 25, 20, 16)     │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ conv2d_1 (Conv2D)               │ (None, 25, 20, 32)     │           512 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ batch_normalization_2           │ (None, 25, 20, 32)     │           128 │
+│ (BatchNormalization)            │                        │               │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ re_lu_2 (ReLU)                  │ (None, 25, 20, 32)     │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ max_pooling2d (MaxPooling2D)    │ (None, 12, 10, 32)     │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ depthwise_conv2d_1              │ (None, 12, 10, 32)     │           288 │
+│ (DepthwiseConv2D)               │                        │               │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ batch_normalization_3           │ (None, 12, 10, 32)     │           128 │
+│ (BatchNormalization)            │                        │               │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ re_lu_3 (ReLU)                  │ (None, 12, 10, 32)     │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ conv2d_2 (Conv2D)               │ (None, 12, 10, 64)     │         2,048 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ batch_normalization_4           │ (None, 12, 10, 64)     │           256 │
+│ (BatchNormalization)            │                        │               │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ re_lu_4 (ReLU)                  │ (None, 12, 10, 64)     │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ average_pooling2d               │ (None, 1, 1, 64)       │             0 │
+│ (AveragePooling2D)              │                        │               │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ dropout (Dropout)               │ (None, 1, 1, 64)       │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ conv2d_3 (Conv2D)               │ (None, 1, 1, 4)        │           260 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ reshape (Reshape)               │ (None, 4)              │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ softmax (Softmax)               │ (None, 4)              │             0 │
+└─────────────────────────────────┴────────────────────────┴───────────────┘
+ Total params: 4,036 (15.77 KB)
+ Trainable params: 3,716 (14.52 KB)
+ Non-trainable params: 320 (1.25 KB)
+epoch   5  loss 0.621  accuracy on clean training windows 0.887
+epoch  10  loss 0.544  accuracy on clean training windows 0.943
+epoch  15  loss 0.540  accuracy on clean training windows 0.974
+epoch  20  loss 0.502  accuracy on clean training windows 0.969
+epoch  25  loss 0.480  accuracy on clean training windows 0.987
+epoch  30  loss 0.485  accuracy on clean training windows 0.987
+epoch  35  loss 0.493  accuracy on clean training windows 0.991
+epoch  40  loss 0.503  accuracy on clean training windows 0.991
+fully_quantize: 0, inference_type: 6, input_inference_type: INT8, output_inference_type: INT8
+int8 model size: 14864 bytes (14.5 KB)
+interpreter uses reference kernels: True 
+input : [ 1 49 40  1] int8 scale 0.04689345136284828 zero point -17
+output: [1 4] int8 scale 0.00390625 zero point -128
+operations: ['AVERAGE_POOL_2D', 'CONV_2D', 'DEPTHWISE_CONV_2D', 'MAX_POOL_2D', 'RESHAPE', 'SOFTMAX']
+float model: window accuracy 0.863 on 358 windows
+confusion matrix (rows = true, columns = predicted):
+            background   chainsaw       fire      birds
+background         105          6         15         18
+  chainsaw           6         64          0          1
+      fire           3          0         69          0
+     birds           0          0          0         71
+clip accuracy (majority vote per 5 s clip): 0.875 on 40 clips
+int8 model: window accuracy 0.869 on 358 windows
+confusion matrix (rows = true, columns = predicted):
+            background   chainsaw       fire      birds
+background         106          5         15         18
+  chainsaw           5         64          0          2
+      fire           2          0         70          0
+     birds           0          0          0         71
+clip accuracy (majority vote per 5 s clip): 0.900 on 40 clips
+replay clips (true class -> PC prediction, PC confidence):
+  5-117773-A-16.wav      @ 2.0 s  background -> background 0.93
+  5-157204-A-16.wav      @ 2.0 s  background -> birds      0.88
+  5-170338-A-41.wav      @ 2.0 s    chainsaw -> chainsaw   0.39
+  5-170338-B-41.wav      @ 2.0 s    chainsaw -> chainsaw   0.92
+  5-186924-A-12.wav      @ 2.0 s        fire -> fire       0.89
+  5-189212-A-12.wav      @ 2.0 s        fire -> fire       0.97
+  5-242490-A-14.wav      @ 2.0 s       birds -> birds      1.00
+  5-242491-A-14.wav      @ 2.0 s       birds -> birds      0.98
+files written to /home/claude/poc_work/run3 : ['feature_examples.png', 'hn_feature_params.h', 'hn_model_data.h', 'hn_replay_clips.h', 'hushnet_int8.tflite', 'train.log', 'training_summary.json']
+Not on Colab: the files are in /home/claude/poc_work/run3
